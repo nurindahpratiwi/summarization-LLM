@@ -7,8 +7,6 @@ from transformers import pipeline
 import torch
 import base64
 
-access_token = st.secrets["HF_TOKEN"]
-
 # Model and tokenizer 
 #model_checkpoint = "LaMini-Flan-T5-248M"
 model_checkpoint = "MBZUAI/LaMini-Flan-T5-783M"
