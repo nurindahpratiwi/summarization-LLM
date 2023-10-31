@@ -11,11 +11,12 @@ access_token = st.secrets["HF_TOKEN"]
 
 # Model and tokenizer 
 #model_checkpoint = "LaMini-Flan-T5-248M"
-#model_tokenizer = T5Tokenizer.from_pretrained(model_checkpoint)
-#model = T5ForConditionalGeneration.from_pretrained(model_checkpoint, device_map='auto', torch_dtype=torch.float32)
+model_checkpoint = "MBZUAI/LaMini-Flan-T5-783M"
+model_tokenizer = T5Tokenizer.from_pretrained(model_checkpoint)
+model = T5ForConditionalGeneration.from_pretrained(model_checkpoint, device_map='auto', torch_dtype=torch.float32, token=access_token)
 
-REPO_ID = "MBZUAI/LaMini-Flan-T5-783M"
-model = pipeline(task='summarization', model=REPO_ID, token=access_token)
+#REPO_ID = "MBZUAI/LaMini-Flan-T5-783M"
+#model = pipeline(task='summarization', model=REPO_ID, token=access_token)
 
 # File loader and preprocessing
 def preprocess_pdf(file):
