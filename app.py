@@ -2,7 +2,7 @@ import streamlit as st
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain.document_loaders import PyPDFLoader, DirectoryLoader
 from langchain.chains.summarize import load_summarize_chain
-from transformers import T5Tokenizer
+from transformers import T5Tokenizer, T5ForConditionalGeneration
 from transformers import pipeline
 # Load model directly
 from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
@@ -14,10 +14,10 @@ import base64
 
 #MODEL AND TOKENIZER
 checkpoint = "MBZUAI/LaMini-Flan-T5-248M"
-#tokenizer = T5Tokenizer.from_pretrained(checkpoint)
-#base_model = T5ForConditionalGeneration.from_pretrained(checkpoint, device_map='auto', torch_dtype=torch.float32)
-tokenizer = AutoTokenizer.from_pretrained(checkpoint)
-base_model = AutoModelForSeq2SeqLM.from_pretrained(checkpoint)
+tokenizer = T5Tokenizer.from_pretrained(checkpoint)
+base_model = T5ForConditionalGeneration.from_pretrained(checkpoint, device_map='auto', torch_dtype=torch.float32)
+#tokenizer = AutoTokenizer.from_pretrained(checkpoint)
+#base_model = AutoModelForSeq2SeqLM.from_pretrained(checkpoint)
 
 #FILE LOADER AND PREPROCESSING
 def get_file(file):
@@ -71,7 +71,7 @@ def main():
                 temp_file.write (uploaded_file.read())
             with col1:
                 st.info("Uploaded file")
-                pdf_view = displayPDF(filepath)
+                pdf_viewer = displayPDF(filepath)
             with col2:
                 summary = llm_pipeline(filepath)
                 st.info("Summarization Complete")
